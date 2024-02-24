@@ -5,6 +5,7 @@ async function attachEvents() {
 
     async function returnForecast() {
         try {
+            document.querySelector('.label').textContent = 'Current conditions'
             const weatherSymbols = {
                 'Sunny': '&#x2600;',        // ☀
                 'Partly sunny': '&#x26C5;', // ⛅
@@ -116,7 +117,7 @@ async function attachEvents() {
             upcomingForecast.appendChild(forecastInfoDiv);
         } catch (error) {
             document.getElementById('forecast').style.display = 'block';
-            document.getElementById('forecast').textContent = 'Error';
+            document.querySelector('.label').textContent = 'Error';
         }
     }
 }
