@@ -15,13 +15,13 @@ label {
     font-weight: bold;
 }
 
-input[type="text"], button[type="submit"] {
+input[type="text"] {
     width: 200px;
     padding: 5px;
     margin-bottom: 10px;
 }
 
-button[type="submit"] {
+input[type="submit"] {
     padding: 8px 16px;
     background-color: #4CAF50;
     color: white;
@@ -29,7 +29,7 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-button[type="submit"]:hover {
+input[type="submit"]:hover {
     background-color: #45a049;
 }
 
