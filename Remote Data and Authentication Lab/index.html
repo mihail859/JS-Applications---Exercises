@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <h2>Table with Form</h2>
+
+        <!-- Form to input data -->
+        <form id="dataForm">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name"><br>
+
+            <label for="area">Area:</label><br>
+            <input type="text" id="area" name="area"><br>
+
+            <label for="yearStart">Year Start:</label><br>
+            <input type="text" id="yearStart" name="yearStart"><br>
+
+            <label for="yearEnd">Year End:</label><br>
+            <input type="text" id="yearEnd" name="yearEnd"><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <br>
+
+        <!-- Table to display data -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Area</th>
+                    <th>Year Start</th>
+                    <th>Year End</th>
+                </tr>
+            </thead>
+            <!-- Table body will be populated dynamically -->
+            <tbody id="dataTableBody">
+                <!-- Data will be inserted here -->
+            </tbody>
+        </table>
+
+    </body>
+
+</html>
