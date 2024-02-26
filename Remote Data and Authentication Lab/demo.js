@@ -8,7 +8,12 @@ btnSeeLandmarks.addEventListener('click', seeLandmarksFunc)
 
 async function seeLandmarksFunc(){
     try {
-        console.log('it works');
+        
+
+
+
+
+        
     } catch (error) {
         console.log(error);
     }
