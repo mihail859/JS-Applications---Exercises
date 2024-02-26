@@ -52,6 +52,17 @@ window.addEventListener('load', async () => {
     const recipes = await getRecipes();
     const cards = recipes.map(createRecipePreview);
 
+    let isUserLOgged = sessionStorage.getItem('accessToken');
+    if (isUserLOgged == undefined){
+        let guest = document.getElementById('guest');
+        guest.style.display = 'inline-block';
+
+    }else{
+        let user = document.getElementById('user');
+        user.style.display = 'inline-block';
+    }
+
+
     main.innerHTML = '';
     cards.forEach(c => main.appendChild(c));
 });
