@@ -19,7 +19,9 @@ async function login(e){
     let response = await fetch(url, settings);
     let result = await response.json();
 
-    sessionStorage.setItem('accessToken', response.accessToken);
+    sessionStorage.setItem('accessToken', result.accessToken);
+
+    window.location = '/index.html'
 
 
 }
