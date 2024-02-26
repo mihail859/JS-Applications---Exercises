@@ -8,15 +8,26 @@ btnSeeLandmarks.addEventListener('click', seeLandmarksFunc)
 
 async function seeLandmarksFunc(){
     try {
+        let url = 'http://localhost:3030/jsonstore/landmarks';
+        let response = await fetch(url);
+        let returningData = await response.json();
+
+        let valuesData = [...Object.values(returningData)]
+
         
 
 
 
 
-        
+
     } catch (error) {
         console.log(error);
     }
+}
+
+
+function createElements(){
+    
 }
 
 async function addData(e){
@@ -42,6 +53,7 @@ async function addData(e){
     let result = await response.json();
 
     console.log(result)
-
+    let btnParent = e.target.parentElement;
+    btnParent.reset();
 
 }
