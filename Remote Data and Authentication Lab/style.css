@@ -21,6 +21,7 @@ input[type="text"] {
     margin-bottom: 10px;
 }
 
+
 input[type="submit"] {
     padding: 8px 16px;
     background-color: #4CAF50;
@@ -39,7 +40,7 @@ table {
 }
 
 table, th, td {
-    border: 1px solid #ddd;
+    border: 4px solid #ddd;
 }
 
 th, td {
@@ -51,3 +52,16 @@ th {
     background-color: #f2f2f2;
     color: #333;
 }
+.see-info{
+    
+    display: flex;
+    flex-direction: row;
+    gap: 4em;
+}
+
+#seeData{
+    background-color: aqua;
+    border-radius: 0.6em;
+    border: 2px solid #eee;
+}
+

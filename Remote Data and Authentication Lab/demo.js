@@ -1,6 +1,19 @@
 let myBtn = document.getElementById('submitBtn')
 myBtn.addEventListener('click', addData);
 
+let btnSeeLandmarks = document.getElementById('seeData');
+btnSeeLandmarks.addEventListener('click', seeLandmarksFunc)
+
+
+
+async function seeLandmarksFunc(){
+    try {
+        console.log('it works');
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function addData(e){
     e.preventDefault();
     console.log('event prevented');
