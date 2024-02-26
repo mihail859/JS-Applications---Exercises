@@ -14,6 +14,12 @@ async function login(e){
             password: formData.get('password')
 
         })
-    }
+    };
+
+    let response = await fetch(url, settings);
+    let result = await response.json();
+
+    sessionStorage.setItem('accessToken', response.accessToken);
+
 
 }
