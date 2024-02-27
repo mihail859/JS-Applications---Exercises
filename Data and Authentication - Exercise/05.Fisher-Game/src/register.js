@@ -31,7 +31,30 @@ function register(){
         }
 
         if (email && password && rePass){
+            try {
+                let dataUser = {email, password}
+                let url = 'http://localhost:3030/users/register';
+                let response = await fetch(url, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(dataUser)
+                });
 
+                if (!response.ok){
+                    throw new Error(response.statusText)
+                }
+
+                let registeredData = await response.json();
+                
+                sessionStorage.setItem('accessToken', registeredData.accessToken);
+                sessionStorage.setItem('loggedInUser', registeredData.email);
+                sessionStorage.setItem('id', registeredData._id);
+
+
+                window.location = 'index.html';
+            } catch (error) {
+                notificationParagraph.textContent = error.message;
+            }
         }
     
     }
