@@ -9,6 +9,16 @@ function app(){
     }else{
         document.querySelector('span').textContent = 'quest';
     }
+
+    if (accessToken){
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('register').style.display = 'none';
+        document.getElementById('logout').style.display = 'inline';
+    }else{
+        document.getElementById('login').style.display = 'inline';
+        document.getElementById('register').style.display = 'inline';
+        document.getElementById('logout').style.display = 'none';
+    }
 }
 
 app();
