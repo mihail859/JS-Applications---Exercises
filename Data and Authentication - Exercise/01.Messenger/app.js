@@ -6,17 +6,16 @@ function attachEvents() {
     document.getElementById('refresh').addEventListener('click', refreshMessages);
 }
 
-attachEvents();
-async function addMessage(){
-    alert('the message has been added');
-    let author = document.querySelector('input[name="author"]').value;
-    let content = document.querySelector('input[name="content"]').value;
 
-    if (author && content){
+async function addMessage(){
+    let authorName = document.querySelector('input[name="author"]').value;
+    let msgText = document.querySelector('input[name="content"]').value;
+
+    
         let dataToBeAdd = {
-            author,
-            content
-        }
+            author: authorName,
+            content: msgText,
+            }
 
         let response = await fetch(url, {
             method: 'POST',
@@ -26,9 +25,7 @@ async function addMessage(){
 
         let result = await response.json();
 
-        console.log(result);
-
-    }
+    
 }
 
 async function refreshMessages(){
@@ -38,10 +35,13 @@ async function refreshMessages(){
 
 
 
+    let messages = []
     Object.values(dataToShow).forEach(el => {
         console.log(el);
-        textArea.textContent += `${el.author}: ${el.content}\n`
-    })
-
+        messages.push(`${el.author}: ${el.content}`)
+    });
+    textArea.textContent = messages.join('\n')
 }
+
+attachEvents();
 
