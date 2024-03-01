@@ -47,29 +47,78 @@ async function loadBooksFunction(){
 };
 
 async function editInfo(e){
-    console.log(e.target);
-    let classEl = e.target.getAttribute("class");
-    let h3Form = document.querySelector('h3');
-    h3Form.textContent = 'Edit FORM';
+    try {
+        let classEl = e.target.classList[0]; // Getting the class from button's classList
+        let h3Form = document.querySelector('h3');
+        h3Form.textContent = 'Edit FORM';
 
-    let btnSave = document.querySelector('form button');
-    btnSave.textContent = 'Save';
+        // Fetch the book data using the class id
+        let resp = await fetch(`${url}/${classEl}`);
+        let dataReturned = await resp.json();
 
-    let resp = await fetch(`${url}/${classEl}`);
-    let dataReturned = await resp.json();
+        // Update form fields with existing book data
+        let inputElementTitle = document.querySelector('input[name="title"]');
+        inputElementTitle.value = dataReturned.title;
 
-    console.log(dataReturned);
+        let inputElementAuthor = document.querySelector('input[name="author"]');
+        inputElementAuthor.value = dataReturned.author;
 
-    
+        // Change submit button text and add class for edit functionality
+        let btnSave = document.querySelector('form button');
+        btnSave.textContent = 'Save';
+        btnSave.classList.add('btnSubmit');
 
-    let inputElement = document.querySelector('input[name="title"]');
-    inputElement.value = dataReturned.title;
+        // Add event listener to handle saving the edited data
+        formElement.removeEventListener('submit', addBook); // Remove existing listener
+        formElement.addEventListener('submit', (event) => saveEditedBook(event, classEl));
 
-    let inputElement2 = document.querySelector('input[name="author"]');
-    inputElement2.value = dataReturned.author;
-    
+        h3Form.textContent = 'FORM';
+        btnSave.textContent = 'Submit';
 
+    } catch (error) {
+        console.error(error);
+    }
 };
+
+async function saveEditedBook(event, classId) {
+    try {
+        event.preventDefault();
+
+        let form = new FormData(formElement);
+        let title = form.get('title');
+        let author = form.get('author');
+
+        if (!title || !author) {
+            throw new Error('Invalid input data');
+        }
+
+        let bookData = {
+            title,
+            author
+        };
+
+        // Send PATCH request to update the book data
+        let patchRequest = await fetch(`${url}/${classId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bookData)
+        });
+
+        let result = await patchRequest.json();
+        console.log(result);
+
+        // Reset form and reload books after editing
+        formElement.reset();
+        tbody.innerHTML = ''; // Clear existing table rows
+        await loadBooksFunction(); // Reload books
+
+    } catch (error) {
+        console.error(error);
+        alert(error);
+    }
+}
+
+
 
 
 
