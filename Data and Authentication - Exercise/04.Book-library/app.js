@@ -34,6 +34,7 @@ async function loadBooksFunction(){
         let btnDelete = document.createElement('button');
         btnDelete.textContent = 'Delete';
         btnDelete.classList.add(k);
+        btnDelete.addEventListener('click', deleteInfo);
 
         td3.appendChild(btnEdit);
         td3.appendChild(btnDelete);
@@ -45,6 +46,21 @@ async function loadBooksFunction(){
         tbody.appendChild(trElement)
     })
 };
+
+async function deleteInfo(e){
+    let id = e.target.classList[0];
+    console.log(id);
+    let row = e.target.parentElement.parentElement;
+
+    let deleteResp = await fetch(`${url}/${id}`, {
+        method: 'DELETE',
+    });
+    let deleted = await deleteResp.json();
+    
+    console.log(deleted);
+
+    row.remove()
+}
 
 async function editInfo(e){
     try {
