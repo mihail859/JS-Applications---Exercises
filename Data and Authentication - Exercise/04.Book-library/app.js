@@ -55,7 +55,23 @@ async function editInfo(e){
     let btnSave = document.querySelector('form button');
     btnSave.textContent = 'Save';
 
-}
+    let resp = await fetch(`${url}/${classEl}`);
+    let dataReturned = await resp.json();
+
+    console.log(dataReturned);
+
+    
+
+    let inputElement = document.querySelector('input[name="title"]');
+    inputElement.value = dataReturned.title;
+
+    let inputElement2 = document.querySelector('input[name="author"]');
+    inputElement2.value = dataReturned.author;
+    
+
+};
+
+
 
 
 async function addBook(e){
