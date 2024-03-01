@@ -48,6 +48,8 @@ async function loadBooksFunction(){
 
 async function editInfo(e){
     try {
+
+        let previousEventListener = formElement.onsubmit;
         let classEl = e.target.classList[0]; // Getting the class from button's classList
         let h3Form = document.querySelector('h3');
         h3Form.textContent = 'Edit FORM';
@@ -66,7 +68,6 @@ async function editInfo(e){
         // Change submit button text and add class for edit functionality
         let btnSave = document.querySelector('form button');
         btnSave.textContent = 'Save';
-        btnSave.classList.add('btnSubmit');
 
         // Add event listener to handle saving the edited data
         formElement.removeEventListener('submit', addBook); // Remove existing listener
@@ -74,6 +75,9 @@ async function editInfo(e){
 
         h3Form.textContent = 'FORM';
         btnSave.textContent = 'Submit';
+
+
+        formElement.onsubmit = previousEventListener;
 
     } catch (error) {
         console.error(error);
@@ -111,6 +115,12 @@ async function saveEditedBook(event, classId) {
         formElement.reset();
         tbody.innerHTML = ''; // Clear existing table rows
         await loadBooksFunction(); // Reload books
+
+
+        let btnSave = document.querySelector('form button');
+        btnSave.textContent = 'Submit';
+        formElement.removeEventListener('submit', saveEditedBook);
+        formElement.addEventListener('submit', addBook);
 
     } catch (error) {
         console.error(error);
