@@ -29,6 +29,7 @@ async function loadBooksFunction(){
         let btnEdit = document.createElement('button');
         btnEdit.textContent = 'Edit';
         btnEdit.classList.add(k);
+        btnEdit.addEventListener('click', editInfo)
 
         let btnDelete = document.createElement('button');
         btnDelete.textContent = 'Delete';
@@ -44,6 +45,17 @@ async function loadBooksFunction(){
         tbody.appendChild(trElement)
     })
 };
+
+async function editInfo(e){
+    console.log(e.target);
+    let classEl = e.target.getAttribute("class");
+    let h3Form = document.querySelector('h3');
+    h3Form.textContent = 'Edit FORM';
+
+    let btnSave = document.querySelector('form button');
+    btnSave.textContent = 'Save';
+
+}
 
 
 async function addBook(e){
@@ -65,11 +77,18 @@ async function addBook(e){
         }
 
         let postRequest = await fetch(url, {
-            
-        })
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(bookData)
+        });
+
+        let result = await postRequest.json();
+        console.log(result);
     } catch (error) {
         alert(error)
     }
+
+    formElement.reset();
 
 
 }
