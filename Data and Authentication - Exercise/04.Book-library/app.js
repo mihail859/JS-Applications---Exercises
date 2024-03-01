@@ -43,4 +43,33 @@ async function loadBooksFunction(){
 
         tbody.appendChild(trElement)
     })
+};
+
+
+async function addBook(e){
+    try {
+        e.preventDefault();
+
+        let form = new FormData(formElement);
+
+        let title = form.get('title');
+        let author = form.get('author');
+
+        if (!title || !author){
+            throw new Error('Invalid input data')
+        }
+
+        let bookData = {
+            title,
+            author
+        }
+
+        let postRequest = await fetch(url, {
+            
+        })
+    } catch (error) {
+        alert(error)
+    }
+
+
 }
