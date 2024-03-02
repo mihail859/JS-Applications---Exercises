@@ -1,14 +1,30 @@
-// show home page
-// load posts
-// post functionality => create posts 
+// [x]show home page
+// [x]load posts
+//[x] post functionality => create posts 
 //cancel functionality
 
 import { createElements } from "./utils.js";
 
 export async function showHomePage(e){
     e.preventDefault();
-    loadPosts();
+    localStorage.clear();
+    window.location = './index.html';
     console.log('hello from home page');
+}
+
+loadPosts();
+
+function showComments(e){
+    let postId;
+    if (e.target.tagName === 'a'){
+        postId = e.target.dataset.id;
+    }else{
+        postId = e.target.parentElement.getAttribute('dataset.id');
+    }
+
+    console.log(postId);
+    localStorage.setItem('postId', post)
+    window.location = './theme-content.html'
 }
 
 async function loadPosts() {
@@ -39,7 +55,7 @@ async function loadPosts() {
 
             let anchorElement = createElements('a', '', topicNameDivElement, 
             {class: 'normal', href: '#', 'dataset.id': postId});
-            //anchorElement.addEventListener('click', showComments);
+            anchorElement.addEventListener('click', showComments);
             createElements('h2', post.title, anchorElement, {});
 
             let columnsDivElement = createElements('div', '',topicNameDivElement, 
@@ -101,4 +117,11 @@ export async function createPost(e){
         alert(error.message);
     }
 
+}
+
+export function onClose(event) {
+    event.preventDefault();
+
+    const formElement = document.querySelector('form');
+    formElement.reset();
 }
