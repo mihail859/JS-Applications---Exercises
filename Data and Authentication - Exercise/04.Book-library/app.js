@@ -36,6 +36,10 @@ async function formUpdateFunction(e){
             body: JSON.stringify(bookData)
         });
 
+        if (!postRequest.ok) {
+            throw new Error('Failed to update book');
+        }
+
         let result = await postRequest.json();
         console.log(result);
 
@@ -44,7 +48,8 @@ async function formUpdateFunction(e){
         formElement.style.display = 'block';
 
     } catch (error) {
-        alert(error)
+        console.error('Error updating book:', error);
+        alert('Error updating book. Please try again later.');
     }
 }
 
@@ -54,53 +59,73 @@ async function loadBooksFunction(){
 
     tbody.innerHTML = '';
 
-    let response = await fetch(url);
-    let data = await response.json();
+    try {
+        let response = await fetch(url);
 
-    Object.entries(data).forEach(([k, e]) => {
-        console.log(k, e);
-        let trElement = document.createElement('tr');
-        let td1 = document.createElement('td');
-        td1.textContent = e.author;
+        if (!response.ok) {
+            throw new Error('Failed to load books');
+        }
 
-        let td2 = document.createElement('td');
-        td2.textContent = e.title;
+        let data = await response.json();
 
-        let td3 = document.createElement('td');
+        Object.entries(data).forEach(([k, e]) => {
+            console.log(k, e);
+            let trElement = document.createElement('tr');
+            let td1 = document.createElement('td');
+            td1.textContent = e.author;
 
-        let btnEdit = document.createElement('button');
-        btnEdit.textContent = 'Edit';
-        btnEdit.classList.add(k);
-        btnEdit.addEventListener('click', editInfo)
+            let td2 = document.createElement('td');
+            td2.textContent = e.title;
 
-        let btnDelete = document.createElement('button');
-        btnDelete.textContent = 'Delete';
-        btnDelete.classList.add(k);
-        btnDelete.addEventListener('click', deleteInfo);
+            let td3 = document.createElement('td');
 
-        td3.appendChild(btnEdit);
-        td3.appendChild(btnDelete);
+            let btnEdit = document.createElement('button');
+            btnEdit.textContent = 'Edit';
+            btnEdit.classList.add(k);
+            btnEdit.addEventListener('click', editInfo);
 
-        trElement.appendChild(td2);
-        trElement.appendChild(td1);
-        trElement.appendChild(td3);
+            let btnDelete = document.createElement('button');
+            btnDelete.textContent = 'Delete';
+            btnDelete.classList.add(k);
+            btnDelete.addEventListener('click', deleteInfo);
 
-        tbody.appendChild(trElement)
-    })
-};
+            td3.appendChild(btnEdit);
+            td3.appendChild(btnDelete);
 
+            trElement.appendChild(td2);
+            trElement.appendChild(td1);
+            trElement.appendChild(td3);
+
+            tbody.appendChild(trElement);
+        });
+    } catch (error) {
+        console.error('Error loading books:', error);
+        alert('Error loading books. Please try again later.');
+    }
+}
 async function editInfo(e){
     formUpdate.style.display = 'block';
     formElement.style.display = 'none';
 
-    currentEditingId = e.target.classList[0]; // Set the current editing ID
+    try {
+        currentEditingId = e.target.classList[0]; // Set the current editing ID
 
-    let dataToEditResp = await fetch(`${url}/${currentEditingId}`);
-    let dataToEdit = await dataToEditResp.json();
+        let dataToEditResp = await fetch(`${url}/${currentEditingId}`);
 
-    document.getElementById('title').value = dataToEdit.title;
-    document.getElementById('author').value = dataToEdit.author;
+        if (!dataToEditResp.ok) {
+            throw new Error('Failed to fetch book data for editing');
+        }
+
+        let dataToEdit = await dataToEditResp.json();
+
+        document.getElementById('title').value = dataToEdit.title;
+        document.getElementById('author').value = dataToEdit.author;
+    } catch (error) {
+        console.error('Error editing book:', error);
+        alert('Error editing book. Please try again later.');
+    }
 }
+
 
 async function deleteInfo(e){
     let id = e.target.classList[0];
@@ -110,11 +135,16 @@ async function deleteInfo(e){
     let deleteResp = await fetch(`${url}/${id}`, {
         method: 'DELETE',
     });
+
+    if (!deleteResp.ok) {
+        throw new Error('Failed to delete book');
+    }
+    
     let deleted = await deleteResp.json();
     
     console.log(deleted);
 
-    row.remove()
+    row.remove();
 }
 
 async function addBook(e){
@@ -141,11 +171,16 @@ async function addBook(e){
             body: JSON.stringify(bookData)
         });
 
+        if (!postRequest.ok) {
+            throw new Error('Failed to add book');
+        }
+
         let result = await postRequest.json();
         console.log(result);
 
         formElement.reset();
     } catch (error) {
-        alert(error)
+        console.error('Error adding book:', error);
+        alert('Error adding book. Please try again later.');
     }
 }
