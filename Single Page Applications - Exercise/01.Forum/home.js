@@ -23,7 +23,7 @@ function showComments(e){
     }
 
     console.log(postId);
-    localStorage.setItem('postId', post)
+    localStorage.setItem('postId', postId)
     window.location = './theme-content.html'
 }
 

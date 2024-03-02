@@ -13,3 +13,5 @@ cancelBtn.addEventListener('click',onClose)
 
 let createPostsButton = buttonsElements[1];
 createPostsButton.addEventListener('click',createPost)
+
+//Details Page
