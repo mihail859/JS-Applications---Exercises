@@ -26,19 +26,28 @@ async function loadPosts() {
         let posts = await response.json();
 
         for (const [postId, post] of Object.entries(posts)) {
-            let topicContainer = createElements('div', '', topicDivElement, {'class': 'topic-container'});
-            let topicNameWrapperDivElement = createElements('div', '', topicContainer,{'class': 'topic-name-wrapper'});
-            let topicNameDivElement = createElements('div', '', topicNameWrapperDivElement,{'class': 'topic-name'});
+            console.log(postId, post);
+           
+            let topicContainer = createElements('div', '', topicDivElement, 
+            {'class': 'topic-container'});
 
-            let anchorElement = createElements('a', '', topicNameDivElement, {'class': 'normal', 'href': '#', 'dataset.id': postId});
+            let topicNameWrapperDivElement = createElements('div', '', topicContainer,
+            {'class': 'topic-name-wrapper'});
+
+            let topicNameDivElement = createElements('div', '', topicNameWrapperDivElement,
+            {'class': 'topic-name'});
+
+            let anchorElement = createElements('a', '', topicNameDivElement, 
+            {class: 'normal', href: '#', 'dataset.id': postId});
             //anchorElement.addEventListener('click', showComments);
-            let h2Element = createElements('h2', '', anchorElement, {});
+            createElements('h2', post.title, anchorElement, {});
 
-            let columnsDivElement = createElements('div', '',topicNameDivElement, {'class': 'columns'});
+            let columnsDivElement = createElements('div', '',topicNameDivElement, 
+            {'class': 'columns'});
             let divElement = createElements('div', '',columnsDivElement, {});
 
             let dateParagraphElement = createElements('p', 'Date:', divElement,{});
-            createElements('time', post.createdDate, dateParagraphElement, {});
+            createElements('time', post.createDate, dateParagraphElement, {});
 
             let nicknameDivElement = createElements('div', '', divElement, {
                 'class': 'nick-name'
@@ -47,6 +56,8 @@ async function loadPosts() {
             createElements('span', post.username, userNameParagraphElement, {});
 
         }
+
+        console.log(topicDivElement);
 
     } catch (error) {
         
@@ -60,5 +71,34 @@ export async function createPost(e){
 
     let formData = new FormData(formElement);
 
-    
+    let title = formData.get('topicName').trim();
+    let username = formData.get('username').trim();
+    let content = formData.get('postText').trim();
+
+    console.log(title, username, content);
+
+    let createDate = new Date();
+
+    try {
+        if (!title || !username || !content){
+            throw new Error('Invalid title or username or post');
+        }
+
+        let response = await fetch('http://localhost:3030/jsonstore/collections/myboard/posts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({title, username, content,createDate})
+        })
+        if (!response.ok){
+            let err = await response.json();
+            throw new Error(err.message)
+        }
+
+        formElement.reset();
+
+        await loadPosts();
+    } catch (error) {
+        alert(error.message);
+    }
+
 }

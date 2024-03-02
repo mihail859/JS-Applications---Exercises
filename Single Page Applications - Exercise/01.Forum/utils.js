@@ -1,6 +1,6 @@
 export function createElements(type, content, parent, attributes){
     let element = document.createElement(type);
-    type.textContent = content
+    element.textContent = content
     if (parent){
         parent.appendChild(element);
     }
