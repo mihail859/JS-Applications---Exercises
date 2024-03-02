@@ -12,7 +12,7 @@ export function loadYears(){
             yearSection.style.display = 'block';
 
             yearSection.addEventListener('click', (e) => {
-                
+              
             });
         }
     });
