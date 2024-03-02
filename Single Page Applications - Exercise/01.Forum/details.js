@@ -63,11 +63,25 @@ async function loadPost(postId) {
         createElements('p', post.content, headerDivElement, {
             class: 'post-content'
         });
+
+        const comments = await loadComments(postId)
+
         
-
-
 
     } catch (error) {
         
+    }
+}
+async function loadComments(postId) {
+    try {
+        const res = await fetch('http://localhost:3030/jsonstore/collections/myboard/comments');
+        if (!res.ok){
+            throw new Error('error')
+        }
+        const comments = await res.json();
+        return Object.values(comments).filter(comment => comment.postId === postId);
+
+    } catch (error) {
+        alert(error.message)
     }
 }
