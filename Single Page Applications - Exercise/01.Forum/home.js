@@ -12,7 +12,11 @@ export async function showHomePage(e){
     console.log('hello from home page');
 }
 
-loadPosts();
+if (!window.location.href.includes('theme-content.html')){
+    loadPosts();
+}
+
+
 
 function showComments(e){
     let postId;

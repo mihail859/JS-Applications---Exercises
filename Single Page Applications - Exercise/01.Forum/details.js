@@ -86,7 +86,40 @@ async function loadPost(postId) {
             });
             createElements('p', comment.content, postContentDivElement, {})
         }
-        
+
+        const answerComment = createElements('div', '', themeContentDivElement, {
+            class: 'answer-comment'
+        });
+
+        const answerParagraphElement = createElements('p', '', answerComment, {});
+        answerParagraphElement.innerHTML = `<span>currentUser</span>comment:`
+
+        const divElementAnswer = createElements('div', '', answerComment, {
+            class: 'answer'
+        });
+
+        const formAnswerElement = createElements('form', '', divElementAnswer, {});
+
+        const textAreaElement = createElements('textarea', '', formAnswerElement, {
+            name: "postText",
+            id: "comment",
+            cols: "30",
+            rows: "10"
+        });
+
+        const formDivElementWithLabelAndInput = createElements('div', '', formAnswerElement, {});
+        const label1 = createElements('label','', formDivElementWithLabelAndInput, {
+            'for': 'username'
+        });
+        label1.innerHTML = `Username <span class="red">*</span>`;
+
+        const inputElement = createElements('input', '', formDivElementWithLabelAndInput, {
+            type: "text", 
+            name: "username",
+            id: "username"
+        });
+
+        createElements('button', 'Post', formAnswerElement, {})
 
     } catch (error) {
         
