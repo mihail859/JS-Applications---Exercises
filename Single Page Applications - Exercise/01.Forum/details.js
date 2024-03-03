@@ -65,7 +65,27 @@ async function loadPost(postId) {
         });
 
         const comments = await loadComments(postId)
+        for (const comment of Object.values(comments)) {
+            const userCommentDivElement = createElements('div', '', commentDivElement, {
+                class: 'user-comment'
+            });
 
+            const topicNameWrapper = createElements('div', '', userCommentDivElement, {
+                class: 'topic-name-wrapper'
+            });
+
+            const topicNameDivElement = createElements('div', '', topicNameWrapper, {
+                class: 'topic-name'
+            });
+
+            const paragraphElement = createElements('p', '',topicNameDivElement, {})
+            paragraphElement.innerHTML = `<strong>${comment.username}</strong> commented on <time>${comment.createDate}</time>`
+
+            const postContentDivElement = createElements('div', '',topicNameDivElement, {
+                'class': 'post-content'
+            });
+            createElements('p', comment.content, postContentDivElement, {})
+        }
         
 
     } catch (error) {
