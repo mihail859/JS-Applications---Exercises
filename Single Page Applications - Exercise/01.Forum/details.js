@@ -4,6 +4,8 @@ import { createElements } from "./utils.js";
 const homeAnchorElement = document.querySelector('a');
 homeAnchorElement.addEventListener('click', showHomePage);
 
+
+
 function fetchPost(){
     const postId = localStorage.getItem('postId')
     
@@ -121,8 +123,50 @@ async function loadPost(postId) {
 
         createElements('button', 'Post', formAnswerElement, {})
 
+        let formElement = document.querySelector('form');
+        formElement.setAttribute('dataset.id', postId);
+
+        const postBtnElement = document.querySelector('button');
+        postBtnElement.addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            let formElem = document.querySelector('form');
+            let postId = formElem.getAttribute('dataset.id');
+
+            let formData = new FormData(formElem);
+            let username = formData.get('username').trim();
+            let content = formData.get('postText').trim();
+
+            let createDate = new Date();
+
+            try {
+                if (!username || !content){
+                    throw new Error('Invalid username or content')
+                }
+
+                const response = await fetch('http://localhost:3030/jsonstore/collections/myboard/comments', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    body: JSON.stringify({username, content, createDate, postId})
+                });
+
+                if (!response.ok){
+                    throw new Error("Error");
+                }
+
+                fetchPost();
+                formElem.reset();
+
+
+            } catch (error) {
+                alert(error)
+            }
+
+        })
+
+
     } catch (error) {
-        
+        alert(error.message);
     }
 }
 async function loadComments(postId) {
@@ -138,3 +182,4 @@ async function loadComments(postId) {
         alert(error.message)
     }
 }
+
