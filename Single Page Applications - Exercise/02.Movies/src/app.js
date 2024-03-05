@@ -2,7 +2,7 @@ import { homeFunction } from './home.js'
 import { logoutFunction } from './logout.js'
 import { loginFunction } from './login.js'
 import { registerFunction } from './register.js'
-import { hideElements } from './hideElements.js'
+import { home } from './utils.js'
 
 const hrefLinks = {
     '/': homeFunction,
@@ -20,6 +20,8 @@ navBar.forEach(link =>{
 
         const url = new URL(link.href);
         const path = url.pathname
+
+        console.log(path);
         if (hrefLinks.hasOwnProperty(path)){
             let callFunc = hrefLinks[path];
             callFunc();
@@ -27,7 +29,7 @@ navBar.forEach(link =>{
     })
 });
 
-let homeView = document.getElementById('home-page');
+homeFunction()
 
-// hideElements(homeView);
+
 
