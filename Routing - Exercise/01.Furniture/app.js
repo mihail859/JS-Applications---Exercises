@@ -7,6 +7,7 @@ import { myPublications } from './views/publicationsView.js';
 import { registerFunction } from './views/registerView.js';
 import { navBarLook } from './utils/navBarView.js';
 import { logoutEvent } from './views/logOut.js';
+import { details } from './views/detailsView.js';
 
 console.log("The app.js works;");
 
@@ -17,6 +18,7 @@ page('/create', createView)
 page('/my-furniture', myPublications)
 page('/login', loginFunction)
 page('/register', registerFunction)
+page('/details/:id', details)
 
 page.start();
 navBarLook();
