@@ -105,7 +105,7 @@ describe('E2E tests', function () {
       expect(isCalled()).to.be.false;
     });
 
-    it('Login makes correct API call [ 5 Points ]', async () => {
+    ('Login makes correct API call [ 5 Points ]', async () => {
       const data = mockData.users[0];
       const { post } = await handle(endpoints.login);
       const { onRequest } = post(data);
