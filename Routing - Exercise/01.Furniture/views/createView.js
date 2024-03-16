@@ -1,6 +1,6 @@
 import { html, render } from "../node_modules/lit-html/lit-html.js";
 import { navBarLook } from "../utils/navBarView.js";
-import page from "../node_modules/page/page.mjs";
+import page from "//unpkg.com/page/page.mjs";
 
 
 export async function createView(){
@@ -31,7 +31,7 @@ let template = html`
                     </div>
                     <div class="form-group has-danger">
                         <label class="form-control-label" for="new-year">Year</label>
-                        <input class="form-control is-invalid" id="new-year" type="number" name="year">
+                        <input class="form-control" id="new-year" type="number" name="year">
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" for="new-description">Description</label>
@@ -144,7 +144,7 @@ async function createNewFurniture(event){
         if (!response.ok){
             throw new Error(response.statusText)
         }
-        let data = response.json();
+        let data = await  response.json();
         console.log(data);
         
         page.redirect("/")

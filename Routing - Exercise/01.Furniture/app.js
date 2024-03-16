@@ -1,5 +1,5 @@
 import { html, render } from './node_modules/lit-html/lit-html.js';
-import page from "//unpkg.com/page/page.mjs";
+import page from "../node_modules/page/page.mjs"
 import { createView } from './views/createView.js';
 import { dashboard } from './views/dashboardView.js';
 import { loginFunction } from './views/loginView.js';

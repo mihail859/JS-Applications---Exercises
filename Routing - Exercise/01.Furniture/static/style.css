@@ -1,5 +1,5 @@
 * {
-    box-sizing: bord;
+    box-sizing: border-box;
 }
 
 body {
@@ -40,6 +40,8 @@ h1 img {
     height: 32px;
     vertical-align: bottom;
     margin-right: 8px;
+    
+
 }
 
 h1 a {
@@ -145,6 +147,7 @@ a.active {
     color: #fff;
     background-color: #1f9bcf;
     border-color: #1f9bcf;
+    text-decoration: none;
 }
 
 .btn-red {
@@ -201,7 +204,9 @@ a.active {
 img {
     width: 200px;
     height: auto;
-    background-color: white;
+    background-color: whitesmoke;
+
+    
 }
 
 .is-valid {
