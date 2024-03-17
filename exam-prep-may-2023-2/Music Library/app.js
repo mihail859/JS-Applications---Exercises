@@ -9,6 +9,7 @@ import { detailsView } from "./views/details.js"
 import { editView } from "./views/edit.js"
 import { deleteFunctionality } from "./views/delete.js"
 import { createView } from "./views/create.js"
+import { like } from "./views/like.js"
 console.log("Works...")
 
 page(updateNavBar)
@@ -21,5 +22,6 @@ page("/details/:id", detailsView);
 page("/edit/:id", editView)
 page("/del/:id", deleteFunctionality)
 page("/add", createView)
+page("/like/:id", like)
 
 page.start();
