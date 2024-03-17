@@ -1,5 +1,6 @@
 import { html, render} from "../node_modules/lit-html/lit-html.js"
 import { detailsViewBasedOnUser } from "../utils/detailsViewUpdate.js";
+import { totalLikes } from "./like.js";
 
 export async function detailsView(ctx, next){
     console.log("From song details view");
@@ -44,7 +45,7 @@ let templateDetails = ( d ) => html`
             <p><strong>Label:</strong><span id="details-label">${d.label}</span></p>
             <p><strong>Sales:</strong><span id="details-sales">${d.sales}</span></p>
           </div>
-          <div id="likes">Likes: <span id="likes-count">0</span></div>
+          <div id="likes">Likes: <span id="likes-count"></span></div>
 
           <!--Edit and Delete are only for creator-->
 
