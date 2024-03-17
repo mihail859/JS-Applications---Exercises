@@ -1,6 +1,6 @@
 import { html, render} from "../node_modules/lit-html/lit-html.js"
 import { detailsViewBasedOnUser } from "../utils/detailsViewUpdate.js";
-import { totalLikes } from "./like.js";
+
 
 export async function detailsView(ctx, next){
     console.log("From song details view");
