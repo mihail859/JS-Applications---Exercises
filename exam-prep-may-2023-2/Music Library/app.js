@@ -7,6 +7,7 @@ import { logOutView } from "./views/logout.js"
 import { registerView } from "./views/register.js"
 import { detailsView } from "./views/details.js"
 import { editView } from "./views/edit.js"
+import { deleteFunctionality } from "./views/delete.js"
 console.log("Works...")
 
 page(updateNavBar)
@@ -17,5 +18,6 @@ page("/logout", logOutView)
 page("/register", registerView)
 page("/details/:id", detailsView);
 page("/edit/:id", editView)
+page("/del/:id", deleteFunctionality)
 
 page.start();
