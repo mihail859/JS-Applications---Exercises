@@ -42,7 +42,7 @@ let template = ( data ) => html`
                     <strong>Album name: </strong><span class="album">${a.album}</span>
                     </p>
                     <p><strong>Sales:</strong><span class="sales">${a.sales}</span></p>
-                    <a class="details-btn" href="/details">Details</a>
+                    <a class="details-btn" href="/details/${a._id}">Details</a>
                 </li>
                 
             `)}
