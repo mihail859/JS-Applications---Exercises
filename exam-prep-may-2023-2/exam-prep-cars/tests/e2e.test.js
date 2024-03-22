@@ -5,8 +5,8 @@ const { expect } = require('chai');
 const userApplicationHttpPort = "3000";
 
 const host = "http://localhost:" + userApplicationHttpPort; // Application host (NOT service host - that can be anything)
-const interval = 300;
-const DEBUG = true;
+const interval = 500;
+const DEBUG = false;
 
 const slowMo = 500;
 
@@ -897,7 +897,7 @@ describe("E2E tests", function () {
                 expect(isHandled()).to.equal(true, 'Details API was not called');
             });
 
-            it("Details with logged in user shows correct info [ 2.5 Points ]", async function () {
+            it.only("Details with logged in user shows correct info [ 2.5 Points ]", async function () {
                 //Login
                 const userData = mockData.users[0];
                 const { post } = await handle(endpoints.login);

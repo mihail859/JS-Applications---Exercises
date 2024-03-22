@@ -10,12 +10,13 @@ export async function dashBoardView(){
         if (!response.ok){
             throw new Error(response.statusText)
         }
-        let albums = await response.json()
+        let cars = await response.json()
+        console.log(cars)
 
-        if (albums.length == 0){
+        if (cars.length == 0){
             render(templateNoAlbums(), document.querySelector("main"))
         }else{
-            render(template(albums), document.querySelector("main"))
+            render(template(cars), document.querySelector("main"))
         }
 
 
@@ -33,6 +34,7 @@ let template = ( data ) => html`
                 <div class="car">
                     <img src="${x.imageUrl}" alt="example1" />
                     <h3 class="model">${x.model}</h3>
+                    
                     <div class="specs">
                     <p class="price">Price: €${x.price}</p>
                     <p class="weight">Weight: ${x.weight} kg</p>
